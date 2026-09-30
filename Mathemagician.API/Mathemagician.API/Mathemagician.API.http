@@ -1,0 +1,6 @@
+@Mathemagician.API_HostAddress = http://localhost:5088
+
+GET {{Mathemagician.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
