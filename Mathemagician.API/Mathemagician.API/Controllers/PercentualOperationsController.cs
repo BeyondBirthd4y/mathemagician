@@ -26,5 +26,10 @@ namespace Mathemagician.API.Controllers
             return PercentualServices.CalculoReducao(valor, percentual);
         }
 
+        [HttpGet("juros-compostos")]
+        public double CalculoJurosCompostos(double capitalInicial, double taxaJuros, int tempo)
+        {
+            return PercentualServices.JurosCompostos(capitalInicial, taxaJuros, tempo);
+        }
     }
 }

@@ -17,5 +17,12 @@ namespace Mathemagician.Services.Percentual
         {
             return value - (value * (percentual / 100));
         }
+
+        public static double JurosCompostos(double capitalInicial, double taxaJuros, int tempoAnos) 
+        {
+            var montante = capitalInicial * Math.Pow(1 + (taxaJuros / 100), Convert.ToDouble(tempoAnos));
+
+            return Math.Round(montante, 2);
+        }
     }
 }
