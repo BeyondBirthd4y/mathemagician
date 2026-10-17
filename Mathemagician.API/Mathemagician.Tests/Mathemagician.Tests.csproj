@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Mathemagician.API\Mathemagician.API.csproj" />
+    <ProjectReference Include="..\Mathemagician.Domain\Mathemagician.Domain.csproj" />
+    <ProjectReference Include="..\Mathemagician.Infra\Mathemagician.Infra.csproj" />
     <ProjectReference Include="..\Mathemagician.Services\Mathemagician.Services.csproj" />
   </ItemGroup>
 

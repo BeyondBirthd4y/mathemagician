@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Mathemagician.Services.Percentual;
+using Mathemagician.Services.Operations;
+using Mathemagician.Domain.Interfaces.Infra;
 
 namespace Mathemagician.API.Controllers
 {
@@ -8,10 +9,13 @@ namespace Mathemagician.API.Controllers
     public class PercentualOperationsController : ControllerBase
     {
         private readonly ILogger<PercentualOperationsController> _logger;
+        private readonly IBacenRepository _bacenRepository;
 
-        public PercentualOperationsController(ILogger<PercentualOperationsController> logger)
+        public PercentualOperationsController(ILogger<PercentualOperationsController> logger,
+            IBacenRepository bacenRepository)
         {
             _logger = logger;
+            _bacenRepository = bacenRepository;
         }
 
         [HttpGet("aumento")]
@@ -27,9 +31,17 @@ namespace Mathemagician.API.Controllers
         }
 
         [HttpGet("juros-compostos")]
-        public double CalculoJurosCompostos(double capitalInicial, double taxaJuros, int tempo)
+        public async Task<double> CalculoJurosCompostos(double capitalInicial, double taxaJuros, int tempo, string tipoTaxa = "")
         {
-            return PercentualServices.JurosCompostos(capitalInicial, taxaJuros, tempo);
+            if(string.IsNullOrEmpty(tipoTaxa))
+                return PercentualServices.JurosCompostos(capitalInicial, taxaJuros, tempo);
+            if(tipoTaxa.ToUpper() == "SELIC")
+            {
+                var taxaSelic = await _bacenRepository.ObterSelicAtualAsync();
+                return PercentualServices.JurosCompostos(capitalInicial, Convert.ToDouble(taxaSelic.Valor), tempo);
+            }
+
+            return 0;
         }
     }
 }

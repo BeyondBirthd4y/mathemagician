@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Mathemagician.Services.Percentual
+namespace Mathemagician.Services.Operations
 {
     public class PercentualServices
     {

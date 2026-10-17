@@ -2,6 +2,7 @@
 using Mathemagician.API.Controllers;
 using Xunit;
 using Moq;
+using Mathemagician.Domain.Interfaces.Infra;
 
 namespace Mathemagician.Tests.Presentation
 {
@@ -11,7 +12,8 @@ namespace Mathemagician.Tests.Presentation
         public void Return_Correct_Calculo_Aumento()
         {
             var loggerMock = new Mock<ILogger<PercentualOperationsController>>();
-            var controller = new PercentualOperationsController(loggerMock.Object);
+            var bacenRepositoryMock = new Mock<IBacenRepository>();
+            var controller = new PercentualOperationsController(loggerMock.Object, bacenRepositoryMock.Object);
 
             float resultado = controller.CalculoAumento(100f, 10f);
 
@@ -22,7 +24,8 @@ namespace Mathemagician.Tests.Presentation
         public void Return_Correct_Calculo_Reducao()
         {
             var loggerMock = new Mock<ILogger<PercentualOperationsController>>();
-            var controller = new PercentualOperationsController(loggerMock.Object);
+            var bacenRepositoryMock = new Mock<IBacenRepository>();
+            var controller = new PercentualOperationsController(loggerMock.Object, bacenRepositoryMock.Object);
 
             float resultado = controller.CalculoReducao(100f, 10f);
 
@@ -30,12 +33,13 @@ namespace Mathemagician.Tests.Presentation
         }
 
         [Fact]
-        public void Return_Correct_Calculo_Juros_Compostos()
+        public async void Return_Correct_Calculo_Juros_Compostos()
         {
             var loggerMock = new Mock<ILogger<PercentualOperationsController>>();
-            var controller = new PercentualOperationsController(loggerMock.Object);
+            var bacenRepositoryMock = new Mock<IBacenRepository>();
+            var controller = new PercentualOperationsController(loggerMock.Object, bacenRepositoryMock.Object);
 
-            double resultado = controller.CalculoJurosCompostos(1000.00d, 14.00d, 1);
+            double resultado = await controller.CalculoJurosCompostos(1000.00d, 14.00d, 1);
 
             Assert.Equal(1140d, resultado);
         }
