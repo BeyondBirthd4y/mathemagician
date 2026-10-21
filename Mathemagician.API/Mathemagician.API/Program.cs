@@ -1,3 +1,8 @@
+using Mathemagician.Domain.Interfaces.Infra;
+using Mathemagician.Domain.Interfaces.Services;
+using Mathemagician.Infra.External;
+using Mathemagician.Services.Operations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,6 +21,11 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+builder.Services.AddHttpClient<IBacenRepository, BacenRepository>();
+builder.Services.AddTransient<IMultiplicationFunctions, MultiplicationFunctions>();
+builder.Services.AddTransient<IPercentualServices, PercentualServices>();
+
 
 var app = builder.Build();
 
