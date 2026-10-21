@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mathemagician.Domain.Interfaces.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Mathemagician.Services.Operations
 {
-    public class MultiplicationFunctions
+    public class MultiplicationFunctions : IMultiplicationFunctions
     {
-        public static long Fatorial(long number)
+        public long Fatorial(long number)
         {
             long result = 1;
 
